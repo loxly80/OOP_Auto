@@ -12,7 +12,7 @@ namespace OOP_Auto
         public double EngineVolume { get; set; }
         public int FuelLevel { get; set; }
         public int Distance { get; set; }
-        public int PneuState { get; set; }
+        public double PneuState { get; set; }
 
         public Vehicle(string brand)
         {
@@ -23,6 +23,13 @@ namespace OOP_Auto
             FuelLevel = 100;
             Distance = 0;
             PneuState = 100;
+        }
+
+        public void Move()
+        {
+            FuelLevel -= 1;
+            Distance += 10;
+            PneuState -= 0.01;
         }
     }
 }

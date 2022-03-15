@@ -20,16 +20,39 @@ namespace OOP_Auto
     /// </summary>
     public partial class MainWindow : Window
     {
+        Vehicle auto1;
+        Vehicle auto2;
+
         public MainWindow()
         {
             InitializeComponent();
-            Vehicle auto1 = new Vehicle("Škoda");
+            auto1 = new Vehicle("Škoda");
             auto1.Type = "Osobní auto";
+            ShowVehicle(auto1, txt1);
 
-            Vehicle auto2 = new Vehicle("VW");
+            auto2 = new Vehicle("VW");
             auto2.Type = "Dodávka";
+            ShowVehicle(auto2, txt2);
+            // auto1.Brand = "Ferrari";
+        }
 
-           // auto1.Brand = "Ferrari";
+        public void ShowVehicle(Vehicle vehicle, TextBox textBox)
+        {
+            textBox.Text = $"Brand: {vehicle.Brand}\n";
+            textBox.Text += $"Type: {vehicle.Type}\n";
+            textBox.Text += $"Fuel: {vehicle.Fuel}\n";
+            textBox.Text += $"Engine volume: {vehicle.EngineVolume}\n";
+            textBox.Text += $"Fuel level: {vehicle.FuelLevel}\n";
+            textBox.Text += $"Distance: {vehicle.Distance}\n";
+            textBox.Text += $"Pneu state: {Math.Round(vehicle.PneuState, 2)}\n";
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            auto1.Move();
+            auto2.Move();
+            ShowVehicle(auto1, txt1);
+            ShowVehicle(auto2, txt2);
         }
     }
 }
