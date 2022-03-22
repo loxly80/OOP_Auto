@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace OOP_Auto
 {
@@ -22,9 +23,14 @@ namespace OOP_Auto
     {
         Vehicle auto1;
         Vehicle auto2;
+        DispatcherTimer timer;
 
         public MainWindow()
         {
+            timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 2);
+            timer.Tick += Timer_Tick;
+
             InitializeComponent();
             auto1 = new Vehicle("Škoda");
             auto1.Type = "Osobní auto";
@@ -34,6 +40,16 @@ namespace OOP_Auto
             auto2.Type = "Dodávka";
             ShowVehicle(auto2, txt2);
             // auto1.Brand = "Ferrari";
+
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            auto1.Move();
+            auto2.Move();
+            ShowVehicle(auto1, txt1);
+            ShowVehicle(auto2, txt2);
         }
 
         public void ShowVehicle(Vehicle vehicle, TextBox textBox)
@@ -45,14 +61,28 @@ namespace OOP_Auto
             textBox.Text += $"Fuel level: {vehicle.FuelLevel}\n";
             textBox.Text += $"Distance: {vehicle.Distance}\n";
             textBox.Text += $"Pneu state: {Math.Round(vehicle.PneuState, 2)}\n";
+            textBox.Text += $"Speed: {vehicle.Speed}\n";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            auto1.Move();
-            auto2.Move();
+           
+            //auto1.Move();
+            //auto2.Move();
+            //ShowVehicle(auto1, txt1);
+            //ShowVehicle(auto2, txt2);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            auto1.SpeedUp();
             ShowVehicle(auto1, txt1);
-            ShowVehicle(auto2, txt2);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            auto1.SpeedDown();
+            ShowVehicle(auto1, txt1);
         }
     }
 }
